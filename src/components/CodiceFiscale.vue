@@ -21,8 +21,13 @@
               <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="sex" id="female" value="F" required>
               <label class="form-check-label" for="female">F</label>
             </div>
-            <select class="form-select form-select-lg mb-3" v-model="birthPlace" aria-label=".form-select-lg example" required>
-              <option selected>Luogo di Nascita</option>
+            <div class="mb-3">Luogo di Nascita</div>
+            <select class="form-select form-select-lg mb-3" v-model="region" aria-label=".form-select-lg example" required>
+              <option selected>Luogo di Nascita (Regione)</option>
+              <option v-for="common in commonRegion" :key="common[2]" :value="common[2]">{{common[2]}}</option>
+            </select> 
+            <select class="form-select form-select-lg mb-3" v-if="region" v-model="birthPlace" aria-label=".form-select-lg example" required>
+              <option selected>Luogo di Nascita (comune)</option>
               <option v-for="nameCode in nameCodes" :key="nameCode[1]" :value="nameCode[1]">{{nameCode[0]}}</option>
             </select>     
             <div class="mb-3">
@@ -54,15 +59,18 @@ export default {
       sex: '',
       birthday: '',
       birthPlace: '',
-      nameCodes: '',
+      commonRegion: '',
       fiscalCode: '',
+      region: '',
+      nameCodes: '',
     }
   },
   mounted() {
     fetch('https://raw.githubusercontent.com/matteocontrini/comuni-json/master/comuni.json')
       .then(result => result.json())
       .then(dati => {
-          this.nameCodes = dati.map(el=>[el.nome,el.codiceCatastale]);
+          this.commonRegion = dati.map(el=>[el.nome, el.codiceCatastale, el.regione.nome]);
+          console.log(this.commonRegion);
       })
   },
   methods: {
@@ -406,6 +414,12 @@ export default {
     let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     result += alphabet[numberToLetter]
     this.fiscalCode = result
+    }
+  },
+  watch: {
+    region(r){
+      this.nameCodes = this.commonRegion.filter(el => el[2] == r)
+      console.log(this.nameCodes);
     }
   }
 }
