@@ -24,7 +24,7 @@
             <div class="mb-3">Luogo di Nascita</div>
             <select class="form-select form-select-lg mb-3" v-model="region" aria-label=".form-select-lg example" required>
               <option selected>Luogo di Nascita (Regione)</option>
-              <option v-for="common in commonRegion" :key="common[2]" :value="common[2]">{{common[2]}}</option>
+              <option v-for="region in regions" :key="region" :value="region">{{region}}</option>
             </select> 
             <select class="form-select form-select-lg mb-3" v-if="region" v-model="birthPlace" aria-label=".form-select-lg example" required>
               <option selected>Luogo di Nascita (comune)</option>
@@ -60,6 +60,7 @@ export default {
       birthday: '',
       birthPlace: '',
       commonRegion: '',
+      regions: '',
       fiscalCode: '',
       region: '',
       nameCodes: '',
@@ -70,7 +71,8 @@ export default {
       .then(result => result.json())
       .then(dati => {
           this.commonRegion = dati.map(el=>[el.nome, el.codiceCatastale, el.regione.nome]);
-          console.log(this.commonRegion);
+          this.regions = new Set(dati.map(el=>el.regione.nome).sort())
+          console.log(this.regions);
       })
   },
   methods: {
