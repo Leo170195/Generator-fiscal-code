@@ -6,33 +6,33 @@
         <div class="col-12 col-lg-6 text-center">
           <form id="" role="form" @submit.prevent="submitFiscalCode()" autocomplete="on">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" v-model="name" id="name" placeholder="Nome" required>
+              <input type="text" class="form-control" v-model.lazy="name" id="name" placeholder="Nome" required>
               <label for="name">Nome</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" v-model="surname" id="surname" placeholder="Cognome" required>
+              <input type="text" class="form-control" v-model.lazy="surname" id="surname" placeholder="Cognome" required>
               <label for="surname">Cognome</label>
             </div>
             <div class="form-check form-check-inline mb-3">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="sex" id="male" value="M" required>
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model.lazy="sex" id="male" value="M" required>
               <label class="form-check-label" for="male">M</label>
             </div>
             <div class="form-check form-check-inline mb-3">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="sex" id="female" value="F" required>
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model.lazy="sex" id="female" value="F" required>
               <label class="form-check-label" for="female">F</label>
             </div>
             <div class="mb-3">Luogo di Nascita</div>
-            <select class="form-select form-select-lg mb-3" v-model="region" aria-label=".form-select-lg example" required>
+            <select class="form-select form-select-lg mb-3" v-model.lazy="region" aria-label=".form-select-lg example" required>
               <option selected>Luogo di Nascita (Regione)</option>
               <option v-for="region in regions" :key="region" :value="region">{{region}}</option>
             </select> 
-            <select class="form-select form-select-lg mb-3" v-if="region" v-model="birthPlace" aria-label=".form-select-lg example" required>
+            <select class="form-select form-select-lg mb-3" v-if="region" v-model.lazy="birthPlace" aria-label=".form-select-lg example" required>
               <option selected>Luogo di Nascita (comune)</option>
               <option v-for="nameCode in nameCodes" :key="nameCode[1]" :value="nameCode[1]">{{nameCode[0]}}</option>
             </select>     
             <div class="mb-3">
               <label for="birthday" class="form-label">Giorno di nascita</label>
-              <input type="date" class="form-control" v-model="birthday" id="birthday" required>
+              <input type="date" class="form-control" v-model.lazy="birthday" id="birthday" required>
             </div>
             <div class="form-group">
                 <button role="button" type="submit" class="btn btn-primary lead py-2 px-3">Genera codice fiscale</button>
