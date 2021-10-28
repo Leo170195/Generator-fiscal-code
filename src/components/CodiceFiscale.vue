@@ -78,7 +78,7 @@ export default {
   methods: {
     submitFiscalCode(){
       let result = '';
-      console.log(this.name, this.surname, this.sex, this.birthday, this.birthPlace);
+      // console.log(this.name, this.surname, this.sex, this.birthday, this.birthPlace);
       let s = this.surname.replace(/ /g, "").toUpperCase().split('')
       let n = this.name.replace(/ /g, "").toUpperCase().split('')
       let consonant = [];
@@ -119,7 +119,7 @@ export default {
         }
       })
       if(consonant.length >= 4){
-        result += consonant[0] + consonant[consonant.length - 2] + consonant[consonant.length - 1] 
+        result += consonant[0] + consonant[2] + consonant[3] 
       } else if(consonant.length == 3) {
         result += consonant.join('')
       } else if(consonant.length == 2) {
